@@ -5,6 +5,6 @@ public class DemoTest {
 
     public String test(String str){
 //        syso
-        return "";
+        return "123";
     }
 }
