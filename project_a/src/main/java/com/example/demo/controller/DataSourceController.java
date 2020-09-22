@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 
 @Controller
@@ -18,12 +19,12 @@ public class DataSourceController {
     @Autowired
     private IUserService iUserService;
 
-    @RequestMapping("/dataSource")
+    @RequestMapping("/queryUserInfoList")
     @ResponseBody
-    public String dataSource() throws  Exception{
-        System.out.println(dataSource.getConnection());
-        System.out.println(dataSource.toString());
-        return "connect datasource success";
+    public List<User> queryUserInfoList() throws  Exception{
+        //System.out.println(dataSource.getConnection());
+        //System.out.println(dataSource.toString());
+        return iUserService.queryUserInfoList();
     }
     @RequestMapping("/insert")
     @ResponseBody
@@ -32,5 +33,11 @@ public class DataSourceController {
         user.setUserName("张三");
         user.setPassWord("123123");
         iUserService.insertUser(user);
+    }
+
+    @RequestMapping("/selectUserInfo")
+    @ResponseBody
+    public User selectUserInfo(){
+        return iUserService.selectUserInfo();
     }
 }
