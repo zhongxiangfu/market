@@ -24,6 +24,8 @@ public class DataSourceController {
     public List<User> queryUserInfoList() throws  Exception{
         //System.out.println(dataSource.getConnection());
         //System.out.println(dataSource.toString());
+        System.out.println("45678");
+
         return iUserService.queryUserInfoList();
     }
     @RequestMapping("/insert")

@@ -2,13 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.demo.mapper.UserMapper">
+
+    <resultMap id="userInfoResultMap" type="User">
+        <result property="userName" column="username"/>
+        <result property="passWord" column="passwd"/>
+    </resultMap>
+
     <!--插入用户信息-->
-    <insert id="insert">
+    <insert id="insert" parameterType="com.example.demo.domain.User">
         insert into mysql.t_table(username,passwd)values(#{userName},#{passWord})
     </insert>
     <!--查询客户信息list-->
-    <select id="queryUserInfoList" resultType="java.util.List">
-        select username as userName,passwd as passWord from mysql.t_table
+    <select id="queryUserInfoList" resultMap="userInfoResultMap">
+        select * from mysql.t_table
     </select>
     <!--查询单个客户信息-->
     <select id="selectUserInfo" resultType="com.example.demo.domain.User">

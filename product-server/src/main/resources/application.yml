@@ -1,0 +1,17 @@
+server:
+  port: 8090
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+spring:
+  application:
+    name: product-server
+
+
+
+#  spring.datasource.druid.username=root
+#  spring.datasource.druid.password=123456
+#  spring.datasource.druid.url=jdbc:mysql://localhost:3306/mysql?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+#  spring.datasource.druid.driver-class-name=com.mysql.jdbc.Driver
+#  spring.datasource.druid.initial-size=5
