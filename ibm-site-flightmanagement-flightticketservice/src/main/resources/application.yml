@@ -1,0 +1,43 @@
+#eureka:
+#  client:
+#    serviceUrl:
+##      defaultZone: http://192.168.29.136:9091/eureka/
+#      defaultZone: http://192.168.43.196:9091/eureka/
+server:
+  port: 11102
+spring:
+  application:
+    name: flight-ticket-service
+  datasource:
+    url: jdbc:mysql://47.106.14.236:3306/book_db?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8&autoReconnect=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    # 链接池
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      # 链接池初始化大小
+      initial-size: 8
+      # 最大活跃数
+      max-active: 16
+      # 最小空闲数
+      min-idle: 1
+      # 最大等待时间
+      max-wait: 60000
+
+      test-on-borrow: true
+
+      test-while-idle: true
+
+      timeBetweenEvictionRunsMillis: 300000
+
+
+# mybatis配置
+mybatis:
+  check-config-location: true
+  #  mybatis框架配置文件，对mybatis的生命周期起作用
+  #  配置xml路径
+  mapper-locations: "classpath:/mapper/*Mapper.xml"
+  configuration:
+    #采用驼峰形式将数据表中以‘_’分隔的字段映射到java类的某个属性,比如表字段user_name可以映射为类里面的userName属性
+    map-underscore-to-camel-case: true

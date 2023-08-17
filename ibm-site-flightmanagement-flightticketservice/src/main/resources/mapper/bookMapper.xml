@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ibm.site.flightmanagement.flightticketservice.mapper.BookMapper">
+    <!--查询酒店预定信息-->
+    <select id="queryBookList" resultType="ibm.site.flightmanagement.flightticketservice.vo.BookVO">
+        select t1.book_no as book_no,
+               t1.user_no as user_no,
+               t1.Book_date_start as Book_date_start,
+               t1.Book_date_end as Book_date_end,
+               t2.Room_type as Room_type,
+               t2.Room_price as Room_price,
+               t3.Hotel_name as Hotel_name
+                    from book_db.t_user_hotel_room_info t1
+                    inner join book_db. t_hotel_room_info t2
+                    inner join book_db.t_hotel_info t3
+                where t1.Room_type_no = t2.Room_type_no and t1.Hotel_no = t3.Hotel_no and t1.Delete_flag = '1'
+                    <if test="hotelName !=null and hotelName !='' ">
+                        and t3.Hotel_name like CONCAT('%',#{hotelName},'%')
+                    </if>
+    </select>
+    <!--查询酒店信息-->
+    <select id="queryHotelList" resultType="ibm.site.flightmanagement.flightticketservice.vo.HotelVO">
+        select  * from book_db.t_hotel_info
+    </select>
+
+    <!--查询房间类型编号-->
+    <select id="queryRoomTypeNo" resultType="java.lang.String">
+        select  * from book_db.t_hotel_room_info where Hotel_no = #{hotelNo} and Room_type = #{roomType}
+    </select>
+
+    <!--新增预定信息-->
+    <insert id="save" parameterType="java.util.Map">
+        insert into book_db.t_user_hotel_room_info(book_no,user_no,Room_type_no,Hotel_no,Book_date_start,Book_date_end,Delete_flag)
+        values(#{bookNo},#{userNo},#{roomTypeNo},#{hotelNo},#{bookDateStart},#{bookDateEnd},#{deleteFlag})
+    </insert>
+
+    <!--删除预定信息-->
+    <update id="delete">
+        update book_db.t_user_hotel_room_info set Delete_flag = '0' where book_no = #{bookNo}
+    </update>
+</mapper>
